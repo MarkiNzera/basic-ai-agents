@@ -7,10 +7,7 @@ class Agent:
         self.y_pos = initial_y
 
     def move(self, grid):
-        grid_size = len(grid)
-
-        self._move_right(grid_size)
-        print(f"Moving {self.name} x={self.x_pos} y={self.y_pos}")
+        pass
 
     def _move_down(self, grid_length):
         if (self.y_pos + 1 < grid_length):
