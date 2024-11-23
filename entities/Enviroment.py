@@ -15,6 +15,8 @@ class Enviroment:
         self.size = size
         self.update_grid()
 
+        self.steps = 0
+
     def add_agents(self, agent):
         if len(self.agents) >= 2:
             raise Exception("Maximum number of agents reached")
@@ -46,6 +48,7 @@ class Enviroment:
         os.system("clear")
         for agent in self.agents:
             agent.move(self)
+            self.steps += 1
         self.update_grid()
         
     def is_done(self):
