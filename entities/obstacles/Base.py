@@ -5,6 +5,12 @@ class Base:
         self.y_pos = initial_y
         self.symbol = "B"
 
+    def is_base(self):
+        return True
+
+    def is_resource(self):
+        return False
+
     def is_obstacle(self):
         return True
 

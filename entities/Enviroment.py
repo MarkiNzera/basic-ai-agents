@@ -45,6 +45,12 @@ class Enviroment:
     def step(self):
         os.system("clear")
         for agent in self.agents:
-            agent.move(self.grid)
+            agent.move(self)
         self.update_grid()
         
+    def is_done(self):
+        for agent in self.agents:
+            if agent.is_carrying_resource:
+                return False
+
+        return len(self.resources) == 0

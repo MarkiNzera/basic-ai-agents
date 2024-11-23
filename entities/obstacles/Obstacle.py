@@ -6,6 +6,12 @@ class Obstacle:
         self.symbol = symbol
         self._is_obstacle = is_obstacle
 
+    def is_base(self):
+        return False
+
+    def is_resource(self):
+        return False
+
     def is_obstacle(self):
         return self._is_obstacle
 

@@ -20,5 +20,5 @@ class SimpleReflexAgent(Agent):
         else:
             self._move_right(grid)
 
-        print(f"Moving {self.name} x={self.x_pos} y={self.y_pos}")
+        print(f"Moving {self.name} x={self.x_pos} y={self.y_pos} / Is Carrying resource={self.is_carrying_resource} / Score={self.score}")
 

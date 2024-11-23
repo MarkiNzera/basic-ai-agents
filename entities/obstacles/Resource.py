@@ -8,6 +8,12 @@ class Resource:
         self.collected = False
         self.value = value
 
+    def is_base(self):
+        return False
+
+    def is_resource(self):
+        return True
+
     def is_obstacle(self):
         return False
 
