@@ -1,4 +1,4 @@
-from entities.Agent import Agent
+from entities.agents.Agent import Agent
 from random import randint
 
 print(Agent)

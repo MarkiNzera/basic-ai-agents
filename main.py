@@ -1,7 +1,7 @@
 from time import sleep
 from entities.Enviroment import Enviroment
-from entities.Agent import Agent
-from entities.SimpleReflexAgent import SimpleReflexAgent;
+from entities.agents.Agent import Agent
+from entities.agents.SimpleReflexAgent import SimpleReflexAgent;
 from entities.obstacles.Obstacle import Obstacle
 from entities.obstacles.Resource import Resource
 
