@@ -7,3 +7,12 @@ class Resource:
         self.symbol = symbol
         self.collected = False
         self.value = value
+
+    def is_obstacle(self):
+        return False
+
+    def __str__(self):
+        return self.symbol
+
+    def __format__(self, format_spec):
+        return format(str(self), format_spec)

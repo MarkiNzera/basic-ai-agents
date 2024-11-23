@@ -1,4 +1,6 @@
 import os
+from entities.obstacles.Obstacle import Obstacle
+from entities.obstacles.Base import Base
 
 class Enviroment:
 
@@ -19,17 +21,17 @@ class Enviroment:
         self.agents.append(agent)
 
     def update_grid(self):
-        self.grid = [["." for _ in range(self.size)] for _ in range(self.size)]
-        self.grid[self.size//2][self.size//2] = "B"
+        self.grid = [[Obstacle(".", j, i, False) for i in range(self.size)] for j in range(self.size)]
+        self.grid[self.size//2][self.size//2] = Base(self.size//2, self.size//2)
 
         for obstacle in self.obstacles:
-            self.grid[obstacle.y_pos][obstacle.x_pos] = obstacle.symbol
+            self.grid[obstacle.y_pos][obstacle.x_pos] = obstacle
 
         for agent in self.agents:
-            self.grid[agent.y_pos][agent.x_pos] = agent.symbol
+            self.grid[agent.y_pos][agent.x_pos] = agent
 
         for resource in self.resources:
-            self.grid[resource.y_pos][resource.x_pos] = resource.symbol
+            self.grid[resource.y_pos][resource.x_pos] = resource
 
         self.print_grid()
 
