@@ -8,8 +8,8 @@ from entities.obstacles.Obstacle import Obstacle
 from entities.obstacles.Resource import Resource
 
 agent1 = SimpleReflexAgent("Agente Reativo Simples 1", "A1", 4, 5)
-# agent2 = SimpleReflexAgent("Agente Reativo Simples 2", "A2", 6, 5)
-agent3 = GoalBasedAgent("Agente Baseado em objetivo", "A3", 0, 0)
+agent2 = ModelBasedAgent("Agente Baseado em Modelo 2", "A2", 6, 5)
+agent3 = GoalBasedAgent("Agente Baseado em Objetivo", "A3", 0, 0)
 
 obstacle1 = Obstacle("O", 2, 2, True)
 
@@ -21,14 +21,14 @@ resource5 = Resource("EA", 1, 1, 50)
 
 enviroment = Enviroment(
     size=11, 
-    agents=[agent1],
+    agents=[agent3],
     obstacles=[obstacle1],
     resources=[resource1, resource2, resource3, resource4, resource5]
 )
 
 enviroment.init_agents()
 while not enviroment.is_done():
-    # sleep(0.1)                                                                                                                     
+    # sleep(1)                                                                                                                     
     enviroment.step()
 
 print(f"Done! Num of steps {enviroment.steps}")

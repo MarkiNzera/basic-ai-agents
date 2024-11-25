@@ -27,10 +27,6 @@ class GoalBasedAgent(Agent):
 
         print(f"Moving {self.name} x={self.pos[0]} y={self.pos[1]} / Is Carrying resource={self.is_carrying_resource} / Score={self.score}")
 
-    def get_next_position(self):
-        pass
-
-
     def return_to_base(self):
         return self.a_star(self.pos, (self.env.size//2, self.env.size//2))
 
@@ -38,12 +34,6 @@ class GoalBasedAgent(Agent):
     def go_to_resources(self):
         goal = self.env.resources[0]
         return self.a_star(self.pos, goal.pos)
-
-
-    def heuristic(self, position, goal):
-        x1, y1 = position
-        x2, y2 = goal
-        return abs(x1 - x2) + abs(y1 - y2)
 
 
 

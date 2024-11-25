@@ -1,5 +1,6 @@
 from entities.obstacles.Obstacle import Obstacle
 from heapq import heappop, heappush
+from collections import deque
 
 class Agent:
     def __init__(self, name, symbol, initial_x, initial_y):
@@ -21,6 +22,9 @@ class Agent:
 
     def is_obstacle(self):
         return True
+    
+    def is_free_space(self):
+        return False
 
     def move(self):
         self._move_left(self.env)
@@ -63,10 +67,35 @@ class Agent:
                 x, y = current_position
                 for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
                     next_position = (x + dx, y + dy)
+
                     if self.is_valid_move(next_position) and next_position not in visited:
                         cost = len(path) + self.heuristic(next_position, goal)
                         heappush(pqueue, (cost, next_position, path))
 
+        return []
+    
+    def heuristic(self, position, goal):
+        x1, y1 = position
+        x2, y2 = goal
+        return abs(x1 - x2) + abs(y1 - y2)
+
+    def bsf(self):
+        queue = deque([(self.pos, [self.pos])])
+        visited = set()
+        
+        while queue:
+            (x, y), path = queue.popleft()
+            if not (x, y) in visited:
+                visited.add((x, y))
+
+                if (self.env.grid[x][y].is_resource()):
+                    path.pop(0)
+                    return path
+                
+                for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                    next_position = (x + dx, y + dy)
+                    if self.is_valid_move(next_position) and not self.env.grid[next_position[0]][next_position[1]].is_obstacle() and next_position not in visited:
+                        queue.append((next_position, path + [next_position]))
         return []
 
     def __str__(self):

@@ -14,6 +14,9 @@ class Base:
     def is_obstacle(self):
         return True
 
+    def is_free_space(self):
+        return False
+
     def __str__(self):
         return f"{self.symbol}"
     

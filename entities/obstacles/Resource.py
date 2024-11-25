@@ -15,6 +15,9 @@ class Resource:
 
     def is_obstacle(self):
         return False
+    
+    def is_free_space(self):
+        return False
 
     def __str__(self):
         return self.symbol
