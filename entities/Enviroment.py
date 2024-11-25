@@ -30,7 +30,7 @@ class Enviroment:
             self.grid[obstacle.y_pos][obstacle.x_pos] = obstacle
 
         for agent in self.agents:
-            self.grid[agent.y_pos][agent.x_pos] = agent
+            self.grid[agent.pos[0]][agent.pos[1]] = agent
 
         for resource in self.resources:
             self.grid[resource.y_pos][resource.x_pos] = resource
@@ -48,7 +48,8 @@ class Enviroment:
         os.system("clear")
         for agent in self.agents:
             agent.move(self)
-            self.steps += 1
+        self.steps += 1
+        print(f"step: {self.steps}")
         self.update_grid()
         
     def is_done(self):
