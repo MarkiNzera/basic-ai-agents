@@ -58,3 +58,4 @@ class Enviroment:
                 return False
 
         return len(self.resources) == 0
+    

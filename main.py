@@ -16,7 +16,7 @@ obstacle1 = Obstacle("O", 2, 2, True)
 resource1 = Resource("CE", 3, 3, 10)
 resource2 = Resource("CE", 3, 6, 10)
 resource3 = Resource("MR", 6, 3, 20)
-resource4 = Resource("EA", 6, 6, 50)
+resource4 = Resource("EA", 9, 9, 50)
 resource5 = Resource("EA", 1, 1, 50)
 
 enviroment = Enviroment(
@@ -27,7 +27,7 @@ enviroment = Enviroment(
 )
 
 while not enviroment.is_done():
-    sleep(1)                                                                                                                     
+    # sleep(0.1)                                                                                                                     
     enviroment.step()
 
 print(f"Done! Num of steps {enviroment.steps}")
