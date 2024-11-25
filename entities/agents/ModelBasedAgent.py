@@ -7,6 +7,12 @@ class ModelBasedAgent(Agent):
         self.visited = set()
 
     def move(self, env):
-        pass
+        grid = self.grid
+
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+
+        
+
+
 
 

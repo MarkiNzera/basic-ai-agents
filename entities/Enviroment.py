@@ -33,7 +33,7 @@ class Enviroment:
             self.grid[agent.pos[0]][agent.pos[1]] = agent
 
         for resource in self.resources:
-            self.grid[resource.y_pos][resource.x_pos] = resource
+            self.grid[resource.pos[0]][resource.pos[1]] = resource
 
         self.print_grid()
 
