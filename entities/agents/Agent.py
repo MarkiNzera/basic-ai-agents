@@ -10,6 +10,9 @@ class Agent:
         self.score = 0
         self.loaded_resource = None
 
+    def init(self, env):
+        self.env = env
+
     def is_base(self):
         return False
     
@@ -19,27 +22,27 @@ class Agent:
     def is_obstacle(self):
         return True
 
-    def move(self, env):
-        self._move_left(env)
+    def move(self):
+        self._move_left(self.env)
 
         print(f"Moving {self.name} x={self.x_pos} y={self.y_pos} / Is Carrying resource={self.is_carrying_resource} / Score={self.score}")
 
-    def is_valid_move(self, env, position):
+    def is_valid_move(self, position):
         x, y = position
-        return (0 <= x < len(env.grid)) and (0 <= y < len(env.grid[0]))
+        return (0 <= x < len(self.env.grid)) and (0 <= y < len(self.env.grid[0]))
 
-    def collect_resource(self, resource, env):
+    def collect_resource(self, resource):
         if (resource.is_resource() and  not self.is_carrying_resource):
             self.is_carrying_resource = True
             self.loaded_resource = resource
-            env.resources.remove(resource)
-            env.grid[self.pos[0]][self.pos[1]] = Obstacle(".", self.pos[0], self.pos[1], False)
+            self.env.resources.remove(resource)
+            self.env.grid[self.pos[0]][self.pos[1]] = Obstacle(".", self.pos[0], self.pos[1], False)
 
     def deliver_resource(self):
         self.is_carrying_resource = False
         self.score += self.loaded_resource.value
 
-    def a_star(self, init, goal, env):
+    def a_star(self, init, goal):
         pqueue = []
 
         heappush(pqueue, (0, init, []))
@@ -60,7 +63,7 @@ class Agent:
                 x, y = current_position
                 for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
                     next_position = (x + dx, y + dy)
-                    if self.is_valid_move(env, next_position) and next_position not in visited:
+                    if self.is_valid_move(next_position) and next_position not in visited:
                         cost = len(path) + self.heuristic(next_position, goal)
                         heappush(pqueue, (cost, next_position, path))
 

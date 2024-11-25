@@ -21,11 +21,12 @@ resource5 = Resource("EA", 1, 1, 50)
 
 enviroment = Enviroment(
     size=11, 
-    agents=[agent3],
+    agents=[agent1],
     obstacles=[obstacle1],
     resources=[resource1, resource2, resource3, resource4, resource5]
 )
 
+enviroment.init_agents()
 while not enviroment.is_done():
     # sleep(0.1)                                                                                                                     
     enviroment.step()

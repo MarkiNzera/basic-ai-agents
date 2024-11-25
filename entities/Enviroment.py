@@ -22,6 +22,10 @@ class Enviroment:
             raise Exception("Maximum number of agents reached")
         self.agents.append(agent)
 
+    def init_agents(self):
+        for agent in self.agents:
+            agent.init(self)
+
     def update_grid(self):
         self.grid = [[Obstacle(".", j, i, False) for i in range(self.size)] for j in range(self.size)]
         self.grid[self.size//2][self.size//2] = Base(self.size//2, self.size//2)
@@ -47,7 +51,7 @@ class Enviroment:
     def step(self):
         os.system("clear")
         for agent in self.agents:
-            agent.move(self)
+            agent.move()
         self.steps += 1
         print(f"step: {self.steps}")
         self.update_grid()
