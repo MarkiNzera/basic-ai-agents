@@ -12,7 +12,7 @@ class Base:
         return False
 
     def is_obstacle(self):
-        return True
+        return False
 
     def is_free_space(self):
         return False

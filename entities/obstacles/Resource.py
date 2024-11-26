@@ -24,3 +24,6 @@ class Resource:
 
     def __format__(self, format_spec):
         return format(str(self), format_spec)
+    
+    def __lt__(self, other):
+        return self.value < other.value
