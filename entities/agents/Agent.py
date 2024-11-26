@@ -69,9 +69,17 @@ class Agent:
                 for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
                     next_position = (x + dx, y + dy)
 
-                    if self.is_valid_move(next_position) and not self.env.grid[next_position[0]][next_position[1]].is_obstacle() and next_position not in visited:
-                        cost = len(path) + self.heuristic(next_position, goal)
-                        heappush(pqueue, (cost, next_position, path))
+                    if self.is_carrying_resource:
+                            
+                        if self.is_valid_move(next_position) and (not self.env.grid[next_position[0]][next_position[1]].is_obstacle() or self.env.grid[next_position[0]][next_position[1]].is_base()) and next_position not in visited:
+                            cost = len(path) + self.heuristic(next_position, goal)
+                            heappush(pqueue, (cost, next_position, path))
+                    else:
+
+                        if self.is_valid_move(next_position) and (not self.env.grid[next_position[0]][next_position[1]].is_obstacle()) and next_position not in visited:
+                            cost = len(path) + self.heuristic(next_position, goal)
+                            heappush(pqueue, (cost, next_position, path))
+
 
         return []
     
