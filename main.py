@@ -6,6 +6,7 @@ from entities.agents.SimpleReflexAgent import SimpleReflexAgent
 from entities.agents.ModelBasedAgent import ModelBasedAgent
 from entities.agents.GoalBasedAgent import GoalBasedAgent
 from entities.agents.UtilityBasedAgent import UtilityBasedAgent
+from entities.agents.BDIAgent import BDIAgent
 from entities.obstacles.Obstacle import Obstacle
 from entities.obstacles.Resource import Resource
 
@@ -25,6 +26,9 @@ goalBased2 = GoalBasedAgent("Baseado em Objetivo", "GB2", agent2_initial_pos[0],
 
 utilityBased1 = UtilityBasedAgent("Baseado em Utilidade 1", "UB1", agent1_initial_pos[0], agent1_initial_pos[1])
 utilityBased2 = UtilityBasedAgent("Baseado em Utilidade 2", "UB2", agent2_initial_pos[0], agent2_initial_pos[1])
+
+bdiBased1 = BDIAgent("BDI 1", "BD1", agent1_initial_pos[0], agent1_initial_pos[1])
+bdiBased2 = BDIAgent("BDI 2", "BD2", agent2_initial_pos[0], agent2_initial_pos[1])
 
 grid_ocupied_spaces = [(grid_size//2, grid_size//2), agent1_initial_pos, agent2_initial_pos]
 
@@ -58,14 +62,14 @@ for i in range(2):
 
 enviroment = Enviroment(
     size=grid_size, 
-    agents=[simplesReflex1],
+    agents=[bdiBased1],
     obstacles=obstacles,
     resources=resources
 )
 
 enviroment.init_agents()
 while not enviroment.is_done():                                                                                                   
-    # sleep(1)                                                                                                                     
+    sleep(1)                                                                                                    
     enviroment.step()
 
 print(f"Done! Num of steps {enviroment.steps}")
