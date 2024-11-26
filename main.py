@@ -9,7 +9,7 @@ from entities.agents.UtilityBasedAgent import UtilityBasedAgent
 from entities.obstacles.Obstacle import Obstacle
 from entities.obstacles.Resource import Resource
 
-grid_size = 101
+grid_size = 11
 
 agent1_initial_pos = (grid_size//2 - 1, grid_size//2)
 agent2_initial_pos = (grid_size//2 + 1, grid_size//2)
@@ -58,7 +58,7 @@ for i in range(2):
 
 enviroment = Enviroment(
     size=grid_size, 
-    agents=[goalBased1],
+    agents=[simplesReflex1],
     obstacles=obstacles,
     resources=resources
 )

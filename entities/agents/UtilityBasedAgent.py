@@ -24,12 +24,16 @@ class UtilityBasedAgent(Agent):
                 self.collect_resource(next_position)
 
                 if(next_position.is_base() and self.is_carrying_resource):
-                    self.utility_table.pop(0)
+                    self.utility_table.remove(self.loaded_resource)
                     self.deliver_resource()
                 
                 if(not next_position.is_obstacle()):
-                    print("aqui")
                     self.pos = next_path_position
+
+            for resource in self.utility_table:
+                print(resource, end=" ")
+            print()
+            print(path)
 
         print(f"Moving {self.name} x={self.pos[0]} y={self.pos[1]} / Is Carrying resource={self.is_carrying_resource} / Score={self.score}")
 
