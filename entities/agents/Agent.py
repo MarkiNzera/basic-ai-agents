@@ -22,7 +22,7 @@ class Agent:
 
     def is_obstacle(self):
         return True
-    
+
     def is_free_space(self):
         return False
 
@@ -37,9 +37,10 @@ class Agent:
 
     def collect_resource(self, resource):
         if (resource.is_resource() and  not self.is_carrying_resource):
-            self.is_carrying_resource = True
-            self.loaded_resource = resource
-            self.env.resources.remove(resource)
+            if (resource in self.env.resources):
+                self.is_carrying_resource = True
+                self.loaded_resource = resource
+                self.env.resources.remove(resource)
             self.env.grid[self.pos[0]][self.pos[1]] = Obstacle(".", self.pos[0], self.pos[1], False)
 
     def deliver_resource(self):
@@ -68,7 +69,7 @@ class Agent:
                 for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
                     next_position = (x + dx, y + dy)
 
-                    if self.is_valid_move(next_position) and next_position not in visited:
+                    if self.is_valid_move(next_position) and not self.env.grid[next_position[0]][next_position[1]].is_obstacle() and next_position not in visited:
                         cost = len(path) + self.heuristic(next_position, goal)
                         heappush(pqueue, (cost, next_position, path))
 

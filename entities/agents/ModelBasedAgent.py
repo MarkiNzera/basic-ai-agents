@@ -1,6 +1,4 @@
 from entities.agents.Agent import Agent
-from collections import deque
-from random import randint, shuffle, choice
 
 class ModelBasedAgent(Agent):
     def __init__(self, name, symbol, initial_x, initial_y):
@@ -28,7 +26,6 @@ class ModelBasedAgent(Agent):
         print(f"Moving {self.name} x={self.pos[0]} y={self.pos[1]} / Is Carrying resource={self.is_carrying_resource} / Score={self.score}")
 
     def find_next_resource(self):
-        print(self.bsf())
         return self.bsf()
 
     def return_to_base(self):

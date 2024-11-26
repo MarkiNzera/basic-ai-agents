@@ -4,6 +4,7 @@ class GoalBasedAgent(Agent):
     def __init__(self, name, symbol, initial_x, initial_y):
         super().__init__(name, symbol, initial_x, initial_y)
 
+
     def move(self,):
         resources = self.env.resources
         grid = self.env.grid
