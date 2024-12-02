@@ -2,8 +2,6 @@ from entities.agents.Agent import Agent
 from entities.obstacles.Obstacle import Obstacle
 from random import randint
 
-print(Agent)
-
 class SimpleReflexAgent(Agent):
 
     def __init__(self, name, symbol, initial_x, initial_y):
@@ -12,9 +10,30 @@ class SimpleReflexAgent(Agent):
     def move(self):
         grid = self.env.grid
 
+        if self.is_carrying_resource:
+            path = self.return_to_base()
+        
+            if path:
+                next_path_position = path.pop(0)
+                next_position = grid[next_path_position[0]][next_path_position[1]]
+                self.collect_resource(next_position)
+
+                if(next_position.is_base() and self.is_carrying_resource):
+                    self.deliver_resource()
+                
+                if(not next_position.is_obstacle()):
+                    self.pos = next_path_position
+            return
+
+        pos = self.adjacent_is_resource()
+        if (pos):
+            next_position = grid[pos[0]][pos[1]]
+            self.collect_resource(next_position)
+            self.pos = pos
+            return 
+        
         directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
         move = randint(0, 3)
-
 
         choosen_move = directions[move]
         agent_next_position = (self.pos[0] + choosen_move[0], self.pos[1] + choosen_move[1])
@@ -32,5 +51,6 @@ class SimpleReflexAgent(Agent):
         
         print(f"Moving {self.name} x={self.pos[0]} y={self.pos[1]} / Is Carrying resource={self.is_carrying_resource} / Score={self.score}")
         
-        
+    def return_to_base(self):
+        return self.a_star(self.pos, (self.env.size//2, self.env.size//2))
 

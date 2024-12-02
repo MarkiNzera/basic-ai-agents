@@ -22,6 +22,8 @@ class Enviroment:
 
         self.steps = 0
 
+        self.init_agents()
+
     def add_agents(self, agent):
         if len(self.agents) >= 2:
             raise Exception("Maximum number of agents reached")

@@ -106,6 +106,17 @@ class Agent:
                     if self.is_valid_move(next_position) and not self.env.grid[next_position[0]][next_position[1]].is_obstacle() and next_position not in visited:
                         queue.append((next_position, path + [next_position]))
         return []
+    
+    def adjacent_is_resource(self):
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        adjacent_positions = [(self.pos[0] + dx, self.pos[1] + dy) for dx, dy in directions]
+        for adj_pos in adjacent_positions:
+            if self.is_valid_move(adj_pos):
+                cell = self.env.grid[adj_pos[0]][adj_pos[1]]
+                if cell.is_resource() and not self.is_carrying_resource:
+                    return adj_pos
+            
+        return None
 
     def __str__(self):
         return self.symbol
