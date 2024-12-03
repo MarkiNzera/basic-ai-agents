@@ -71,9 +71,6 @@ class ModelBasedAgent(Agent):
                 self.pos = agent_next_position
 
             return
-
-    def find_path_to_next_resource(self, resource_pos):
-        return self.a_star(self.pos, resource_pos)
     
     def collect_resource(self, resource):
         if (self.is_carrying_resource and resource.is_resource()):

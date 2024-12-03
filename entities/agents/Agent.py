@@ -47,6 +47,9 @@ class Agent:
                 self.is_carrying_resource = True
                 self.loaded_resource = resource
                 self.env.resources.remove(resource)
+                if (resource.pos in self.env.agents_shared_memory_of_resources_pos):
+                    self.env.agents_shared_memory_of_resources_pos.remove(resource.pos)
+
             self.env.grid[self.pos[0]][self.pos[1]] = Obstacle(".", self.pos[0], self.pos[1], False)
             return True
         return False
@@ -109,6 +112,9 @@ class Agent:
     
     def find_path_to_base(self):
         return self.a_star(self.pos, (self.env.size//2, self.env.size//2))
+    
+    def find_path_to_next_resource(self, resource_pos):
+        return self.a_star(self.pos, resource_pos)
 
     def return_to_base(self):
         path = self.find_path_to_base()

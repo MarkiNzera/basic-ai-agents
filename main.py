@@ -41,6 +41,7 @@ for i in range(10):
         grid_ocupied_spaces.append(pos)
 
 resources = []
+# resources = [Resource("CE", 1, 5, 10), Resource("CE", 2, 5, 10), Resource("CE", 4, 7, 10)]
 
 for i in range(4):
     pos = (randint(0, grid_size - 1), randint(0, grid_size - 1))
@@ -62,10 +63,10 @@ for i in range(2):
 
 enviroment = Enviroment(
     size=grid_size, 
-    agents=[simplesReflex1, simplesReflex2],
+    # agents=[simplesReflex1, simplesReflex2],
     # agents=[goalBased1, goalBased2],
     # agents=[modelBased1],
-    # agents=[utilityBased1, utilityBased2],
+    agents=[utilityBased1, utilityBased2],
     #agents=[bdiBased1, bdiBased2],
     obstacles=obstacles,
     resources=resources
