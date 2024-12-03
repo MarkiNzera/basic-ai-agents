@@ -12,8 +12,8 @@ class GoalBasedAgent(Agent):
             self.return_to_base()
             return
         
-        if self.env.agents_shared_memory_of_resources_pos:
-            path = self.find_path_to_next_resource(self.env.agents_shared_memory_of_resources_pos[0])
+        if self.env.agents_shared_memory_of_resources:
+            path = self.find_path_to_next_resource(self.env.agents_shared_memory_of_resources[0].pos)
             if path:
                 next_path_position = path.pop(0)
                 next_position = grid[next_path_position[0]][next_path_position[1]]

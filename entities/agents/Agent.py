@@ -40,15 +40,15 @@ class Agent:
 
     def collect_resource(self, resource):
         if (resource.is_resource() and self.is_carrying_resource):
-            self.env.agents_shared_memory_of_resources_pos.append(resource.pos)
+            self.env.agents_shared_memory_of_resources.append(resource)
 
         if (resource.is_resource() and  not self.is_carrying_resource):
             if (resource in self.env.resources):
                 self.is_carrying_resource = True
                 self.loaded_resource = resource
                 self.env.resources.remove(resource)
-                if (resource.pos in self.env.agents_shared_memory_of_resources_pos):
-                    self.env.agents_shared_memory_of_resources_pos.remove(resource.pos)
+                if (resource in self.env.agents_shared_memory_of_resources):
+                    self.env.agents_shared_memory_of_resources.remove(resource)
 
             self.env.grid[self.pos[0]][self.pos[1]] = Obstacle(".", self.pos[0], self.pos[1], False)
             return True

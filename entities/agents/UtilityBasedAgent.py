@@ -16,8 +16,9 @@ class UtilityBasedAgent(Agent):
             self.return_to_base()
             return
         
-        if self.env.agents_shared_memory_of_resource_pos:
-            path = self.find_path_to_next_resource(self.env.agents_shared_memory_of_resource_pos[0])
+        if self.env.agents_shared_memory_of_resources:
+            next_resource = max(self.env.agents_shared_memory_of_resources)
+            path = self.find_path_to_next_resource(next_resource.pos)
 
             if path:
                 next_path_position = path.pop(0)
@@ -33,13 +34,4 @@ class UtilityBasedAgent(Agent):
                 self.pos = pos
                 return
             
-            self.choice_random_position()
-
-
-
-    def return_to_base(self):
-        return self.a_star(self.pos, (self.env.size//2, self.env.size//2))
-
-    def go_to_resources(self):
-        goal = self.utility_table[0]
-        return self.a_star(self.pos, goal.pos)
+        self.choice_random_position()

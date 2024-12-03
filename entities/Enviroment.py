@@ -9,7 +9,7 @@ class Enviroment:
         self.agents = agents
         self.obstacles = obstacles
         self.resources = resources
-        self.agents_shared_memory_of_resources_pos = []
+        self.agents_shared_memory_of_resources = []
 
         self.size = size
         self.max_steps = max_steps
