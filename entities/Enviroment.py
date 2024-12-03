@@ -2,6 +2,11 @@ import os
 from entities.obstacles.Obstacle import Obstacle
 from entities.obstacles.Base import Base
 
+if os.name == 'nt':
+    command = "cls"
+else:
+    command = "clear"
+
 class Enviroment:
 
     def __init__(self, size, agents=[], obstacles=[], resources=[], max_steps=5000):
