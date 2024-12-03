@@ -40,7 +40,8 @@ class Agent:
 
     def collect_resource(self, resource):
         if (resource.is_resource() and self.is_carrying_resource):
-            self.env.agents_shared_memory_of_resources.append(resource)
+            if resource not in self.env.agents_shared_memory_of_resources:
+                self.env.agents_shared_memory_of_resources.append(resource)
 
         if (resource.is_resource() and  not self.is_carrying_resource):
             if (resource in self.env.resources):
@@ -109,6 +110,19 @@ class Agent:
                     return adj_pos
             
         return None
+    
+    def save_all_adjacents(self):
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        adjacent_positions = [(self.pos[0] + dx, self.pos[1] + dy) for dx, dy in directions]
+
+        resources_found = []
+        for adj_pos in adjacent_positions:
+            if self.is_valid_move(adj_pos):
+                cell = self.env.grid[adj_pos[0]][adj_pos[1]]
+                if cell.is_resource() and cell not in self.env.agents_shared_memory_of_resources:
+                    resources_found.append(cell)
+            
+        return resources_found
     
     def find_path_to_base(self):
         return self.a_star(self.pos, (self.env.size//2, self.env.size//2))

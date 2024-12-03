@@ -42,21 +42,21 @@ for i in range(10):
         grid_ocupied_spaces.append(pos)
 
 resources = []
-# resources = [Resource("CE", 1, 5, 10), Resource("CE", 2, 5, 10), Resource("CE", 4, 7, 10)]
+resources = [Resource("CE", 1, 5, 10), Resource("CE", 2, 6, 10), Resource("CE", 4, 7, 10)]
 
-for i in range(20):
+for i in range(40):
     pos = (randint(0, grid_size - 1), randint(0, grid_size - 1))
     if pos not in grid_ocupied_spaces:
         resources.append(Resource("CE", pos[0], pos[1], 10))
         grid_ocupied_spaces.append(pos)
 
-for i in range(20):
+for i in range(40):
     pos = (randint(0, grid_size - 1), randint(0, grid_size - 1))
     if pos not in grid_ocupied_spaces:
         resources.append(Resource("MR", pos[0], pos[1], 20))
         grid_ocupied_spaces.append(pos)
 
-for i in range(20):
+for i in range(40):
     pos = (randint(0, grid_size - 1), randint(0, grid_size - 1))
     if pos not in grid_ocupied_spaces:
         resources.append(Resource("EA", pos[0], pos[1], 50))
@@ -64,14 +64,14 @@ for i in range(20):
 
 enviroment = Enviroment(
     size=grid_size, 
-    agents=[simplesReflex1, simplesReflex2, simplesReflex3, goalBased1, modelBased1, utilityBased1],
+    agents=[simplesReflex1, goalBased1, modelBased1, utilityBased1],
     obstacles=obstacles,
     resources=resources
 )
 
 enviroment.init_agents()
 while not enviroment.is_done():                                                                                                   
-    # sleep(0.5)                                                                                                    
+    sleep(1)                                                                                                    
     enviroment.step()
 
 print(f"Done! Num of steps {enviroment.steps}")

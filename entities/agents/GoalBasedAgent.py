@@ -8,7 +8,9 @@ class GoalBasedAgent(Agent):
     def move(self,):
         grid = self.env.grid
         
+        self.env.agents_shared_memory_of_resources += self.save_all_adjacents()
         if self.is_carrying_resource:
+
             self.return_to_base()
             return
         
