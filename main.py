@@ -62,9 +62,9 @@ for i in range(2):
 
 enviroment = Enviroment(
     size=grid_size, 
-    agents=[simplesReflex1],
+    # agents=[simplesReflex1],
     #agents=[goalBased1, goalBased2],
-    #agents=[modelBased1, modelBased2],
+    agents=[modelBased1],
     # agents=[utilityBased1, utilityBased2],
     #agents=[bdiBased1, bdiBased2],
     obstacles=obstacles,
