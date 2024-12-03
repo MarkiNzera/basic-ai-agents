@@ -1,5 +1,5 @@
 from entities.agents.Agent import Agent
-from random import randint
+from random import choice
 
 class ModelBasedAgent(Agent):
     def __init__(self, name, symbol, initial_x, initial_y):
@@ -54,23 +54,31 @@ class ModelBasedAgent(Agent):
 
     def choice_random_position(self):
         directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-        move = randint(0, 3)
 
-        choosen_move = directions[move]
-        agent_next_position = (self.pos[0] + choosen_move[0], self.pos[1] + choosen_move[1])
+        possible_moves = []
+        for direction in directions:
+            next_position = (self.pos[0] + direction[0], self.pos[1] + direction[1])
+            if self.is_valid_move(next_position) and next_position not in self.memo_visited_pos:
+                possible_moves.append(next_position)
+
+        if possible_moves:
+            agent_next_position = choice(possible_moves)
+        else:
+            choosen_move = choice(directions)
+            agent_next_position = (self.pos[0] + choosen_move[0], self.pos[1] + choosen_move[1])
+            if not self.is_valid_move(agent_next_position):
+                return
+
+        next_position = self.env.grid[agent_next_position[0]][agent_next_position[1]]
+        self.collect_resource(next_position)
+
+        if(next_position.is_base() and self.is_carrying_resource):
+            self.deliver_resource()
         
-        if (self.is_valid_move(agent_next_position) and agent_next_position not in self.memo_visited_pos):
-            
-            next_position = self.env.grid[agent_next_position[0]][agent_next_position[1]]
-            self.collect_resource(next_position)
+        if(not next_position.is_obstacle()):
+            self.pos = agent_next_position
 
-            if(next_position.is_base() and self.is_carrying_resource):
-                self.deliver_resource()
-            
-            if(not next_position.is_obstacle()):
-                self.pos = agent_next_position
-
-            return
+        self.memo_visited_pos.add(agent_next_position)
     
     def collect_resource(self, resource):
         if (self.is_carrying_resource and resource.is_resource()):

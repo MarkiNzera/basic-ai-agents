@@ -58,6 +58,7 @@ class Enviroment:
             agent.move()
             agent.print_status()
         self.steps += 1
+        print(f"Memória compartilhada: {[resource.pos for resource in self.agents_shared_memory_of_resources]}")
         print(f"step: {self.steps} max reward: {self.max_reward}")
         self.update_grid()
         
