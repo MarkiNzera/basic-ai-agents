@@ -12,28 +12,28 @@ class UtilityBasedAgent(Agent):
     def move(self):
         grid = self.env.grid
         
-        if self.utility_table or self.is_carrying_resource:
-            if self.is_carrying_resource:
-                path = self.return_to_base()
-            else:
-                path = self.go_to_resources()
-            
+        if self.is_carrying_resource:
+            self.return_to_base()
+            return
+        
+        if self.env.agents_shared_memory_of_resource_pos:
+            path = self.find_path_to_next_resource(self.env.agents_shared_memory_of_resource_pos[0])
+
             if path:
                 next_path_position = path.pop(0)
                 next_position = grid[next_path_position[0]][next_path_position[1]]
                 self.collect_resource(next_position)
-
-                if(next_position.is_base() and self.is_carrying_resource):
-                    self.utility_table.remove(self.loaded_resource)
-                    self.deliver_resource()
-                
-                if(not next_position.is_obstacle()):
-                    self.pos = next_path_position
-
-            for resource in self.utility_table:
-                print(resource, end=" ")
-            print()
-            print(path)
+                self.pos = next_path_position
+                return
+            
+            pos = self.adjacent_is_resource()
+            if (pos):
+                next_position = self.env.grid[pos[0]][pos[1]]
+                self.collect_resource(next_position)
+                self.pos = pos
+                return
+            
+            self.choice_random_position()
 
 
 

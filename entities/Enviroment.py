@@ -5,8 +5,6 @@ from entities.obstacles.Base import Base
 class Enviroment:
 
     def __init__(self, size, agents=[], obstacles=[], resources=[], max_steps=5000):
-        if len(agents) > 2:
-            raise Exception("Maximum number of agents reached")
 
         self.agents = agents
         self.obstacles = obstacles
@@ -26,8 +24,6 @@ class Enviroment:
         self.init_agents()
 
     def add_agents(self, agent):
-        if len(self.agents) >= 2:
-            raise Exception("Maximum number of agents reached")
         self.agents.append(agent)
 
     def init_agents(self):
