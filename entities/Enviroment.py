@@ -11,6 +11,7 @@ class Enviroment:
         self.agents = agents
         self.obstacles = obstacles
         self.resources = resources
+        self.agents_shared_memory_of_resources_pos = []
 
         self.size = size
         self.max_steps = max_steps
@@ -59,6 +60,7 @@ class Enviroment:
         os.system("clear")
         for agent in self.agents:
             agent.move()
+            agent.print_status()
         self.steps += 1
         print(f"step: {self.steps} max reward: {self.max_reward}")
         self.update_grid()

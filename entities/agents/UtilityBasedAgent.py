@@ -35,7 +35,6 @@ class UtilityBasedAgent(Agent):
             print()
             print(path)
 
-        print(f"Moving {self.name} x={self.pos[0]} y={self.pos[1]} / Is Carrying resource={self.is_carrying_resource} / Score={self.score}")
 
 
     def return_to_base(self):

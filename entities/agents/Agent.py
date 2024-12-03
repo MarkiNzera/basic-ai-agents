@@ -1,6 +1,7 @@
 from entities.obstacles.Obstacle import Obstacle
 from heapq import heappop, heappush
 from collections import deque
+from random import randint
 
 class Agent:
     def __init__(self, name, symbol, initial_x, initial_y):
@@ -29,13 +30,18 @@ class Agent:
     def move(self):
         self._move_left(self.env)
 
-        print(f"Moving {self.name} x={self.x_pos} y={self.y_pos} / Is Carrying resource={self.is_carrying_resource} / Score={self.score}")
+    def print_status(self):
+        print(f"Moving {self.name} x={self.pos[1]} y={self.pos[0]} / Is Carrying resource={self.is_carrying_resource} / Score={self.score}")
+
 
     def is_valid_move(self, position):
         x, y = position
         return (0 <= x < len(self.env.grid)) and (0 <= y < len(self.env.grid[0]))
 
     def collect_resource(self, resource):
+        if (resource.is_resource() and self.is_carrying_resource):
+            self.env.agents_shared_memory_of_resources_pos.append(resource.pos)
+
         if (resource.is_resource() and  not self.is_carrying_resource):
             if (resource in self.env.resources):
                 self.is_carrying_resource = True
@@ -100,6 +106,41 @@ class Agent:
                     return adj_pos
             
         return None
+    
+    def find_path_to_base(self):
+        return self.a_star(self.pos, (self.env.size//2, self.env.size//2))
+
+    def return_to_base(self):
+        path = self.find_path_to_base()
+    
+        if path:
+            next_path_position = path.pop(0)
+            next_position = self.env.grid[next_path_position[0]][next_path_position[1]]
+            self.collect_resource(next_position)
+
+            if(next_position.is_base() and self.is_carrying_resource):
+                self.deliver_resource()
+            
+            if(not next_position.is_obstacle()):
+                self.pos = next_path_position
+
+    def choice_random_position(self):
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        move = randint(0, 3)
+
+        choosen_move = directions[move]
+        agent_next_position = (self.pos[0] + choosen_move[0], self.pos[1] + choosen_move[1])
+        
+        if (self.is_valid_move(agent_next_position)):
+            
+            next_position = self.env.grid[agent_next_position[0]][agent_next_position[1]]
+            self.collect_resource(next_position)
+
+            if(next_position.is_base() and self.is_carrying_resource):
+                self.deliver_resource()
+            
+            if(not next_position.is_obstacle()):
+                self.pos = agent_next_position
 
     def __str__(self):
         return self.symbol

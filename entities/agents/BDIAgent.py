@@ -36,7 +36,6 @@ class BDIAgent(Agent):
             if not next_position.is_obstacle():
                 self.pos = next_path_position
         
-        print(f"Moving {self.name} x={self.pos[0]} y={self.pos[1]} / Carrying resource: {self.is_carrying_resource} / Score: {self.score}")
 
     def move(self):
         self.perceive() 

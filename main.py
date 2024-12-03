@@ -62,9 +62,9 @@ for i in range(2):
 
 enviroment = Enviroment(
     size=grid_size, 
-    # agents=[simplesReflex1],
-    #agents=[goalBased1, goalBased2],
-    agents=[modelBased1],
+    agents=[simplesReflex1, simplesReflex2],
+    # agents=[goalBased1, goalBased2],
+    # agents=[modelBased1],
     # agents=[utilityBased1, utilityBased2],
     #agents=[bdiBased1, bdiBased2],
     obstacles=obstacles,
@@ -73,7 +73,7 @@ enviroment = Enviroment(
 
 enviroment.init_agents()
 while not enviroment.is_done():                                                                                                   
-    # sleep(1)                                                                                                    
+    # sleep(0.5)                                                                                                    
     enviroment.step()
 
 print(f"Done! Num of steps {enviroment.steps}")

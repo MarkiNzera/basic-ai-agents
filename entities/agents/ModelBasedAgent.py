@@ -34,8 +34,6 @@ class ModelBasedAgent(Agent):
             return 
 
         self.choice_random_position()
-        
-        print(f"Moving {self.name} x={self.pos[0]} y={self.pos[1]} / Is Carrying resource={self.is_carrying_resource} / Score={self.score}")
 
     def find_path_to_base(self):
         return self.a_star(self.pos, (self.env.size//2, self.env.size//2))
