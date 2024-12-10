@@ -22,7 +22,7 @@ class Agent:
         return False
 
     def is_obstacle(self):
-        return True
+        return False
 
     def is_free_space(self):
         return False
@@ -119,7 +119,7 @@ class Agent:
         for adj_pos in adjacent_positions:
             if self.is_valid_move(adj_pos):
                 cell = self.env.grid[adj_pos[0]][adj_pos[1]]
-                if cell.is_resource() and cell not in self.env.agents_shared_memory_of_resources:
+                if cell.is_resource() and cell not in self.env.agents_shared_memory_of_resources and cell in self.env.resources:
                     resources_found.append(cell)
             
         return resources_found
